@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "526416639405",
+    "project_id": "akhbar-alyoum-academy",
+    "storage_bucket": "akhbar-alyoum-academy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526416639405:android:36e4e77aa1cb6607bf9d24",
+        "android_client_info": {
+          "package_name": "com.example.akbar_al_youm_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9F3YeLcYgOiOwyZ3Vc9Ccg4JLF4xxPY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

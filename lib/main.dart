@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme(),
-      home:  HomeScreen(),
+      home:  HomeScreenState(),
     );
   }
 }

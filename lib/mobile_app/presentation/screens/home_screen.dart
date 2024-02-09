@@ -79,7 +79,7 @@ class _HomeScreenStateState extends State<HomeScreenState> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              image: AssetImage('images/aa.jpg',),
+              image: AssetImage('images/aa.jpg'),
               width: 120,
               height: 120,
             ),

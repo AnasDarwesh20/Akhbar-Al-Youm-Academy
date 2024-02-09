@@ -19,7 +19,8 @@ class StudentModel extends Student {
     List<SubjectModel> subjects =
         (data['subjects'] as List<Map<String, dynamic>>?)?.map((subjectData) {
               return SubjectModel.fromFireStore(subjectData);
-            }).toList() ?? [];
+            }).toList() ??
+            [];
 
     return StudentModel(
       name: data['name'],
@@ -38,11 +39,19 @@ class SubjectModel extends Subject {
     required super.doctor,
     required super.lectures,
     required super.students,
+    required super.department,
+    required super.level,
+    required super.term,
+    required super.name,
   });
 
   factory SubjectModel.fromFireStore(Map<String, dynamic> data) => SubjectModel(
         doctor: data['doctor'],
         lectures: data['lectures'],
         students: data['students'],
+        department: 'department',
+        level: data['level'],
+        term: data['term'],
+        name: 'name',
       );
 }

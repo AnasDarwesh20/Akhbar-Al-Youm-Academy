@@ -13,14 +13,13 @@ class AeaStates extends Equatable {
       year: 3,
       subjects: [
         Subject(
-          doctor: 'doctor',
-          lectures: [
-            Lecture(
-              numberOfStudents: 3,
-              students: []
-            )
-          ],
+          doctor: 'Ahmed',
+          lectures: [Lecture(numberOfStudents: 3, students: [])],
           students: [],
+          department: 'computer science',
+          level: 1,
+          term: 1,
+          name: 'math',
         ),
       ],
     ),

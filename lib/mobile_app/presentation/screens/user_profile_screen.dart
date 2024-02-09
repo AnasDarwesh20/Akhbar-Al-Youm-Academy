@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
 
           Center(
             child: UserProfilePhotoWidget(
-                AssetImage
+                ''
             ),
           ),
           Spacing ,

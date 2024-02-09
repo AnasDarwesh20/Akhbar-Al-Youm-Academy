@@ -1,7 +1,7 @@
 import 'package:akbar_al_youm_app/mobile_app/core/style/numbers/app_default_numbers.dart';
 import 'package:flutter/material.dart';
 
-class WidgetsDefaultComponents {
+class DefaultComponents {
 //  Text :
   static Widget text({text,context , fontSize}) => Text(
         text,
@@ -23,7 +23,7 @@ class WidgetsDefaultComponents {
           const SizedBox(
             width: defaultWidth,
           ) ,
-          WidgetsDefaultComponents.text(
+          DefaultComponents.text(
               text: 'Akbar Al Youm ',
               context: context,
               fontSize: 15.0),
@@ -39,4 +39,60 @@ class WidgetsDefaultComponents {
       ) ,
     ],
   ) ;
+
+  static Widget defaultFormField({
+    required TextInputType textInputType,
+    @required dynamic function,
+    dynamic onTap,
+    required IconData prefixIcon,
+    required TextEditingController controller,
+    required String lable,
+    bool isBorder = true,
+    var onSubmit,
+    dynamic postTap,
+    bool isPasswordShown = false,
+    IconButton? suffixIcon,
+  }) =>
+      TextFormField(
+        onFieldSubmitted: onSubmit,
+        controller: controller,
+        obscureText: isPasswordShown,
+        decoration: InputDecoration(
+          labelText: lable,
+          fillColor: Colors.black,
+          prefixIcon: Icon(
+            prefixIcon,
+          ),
+          suffixIcon: GestureDetector(
+            onTap: onTap,
+            child: suffixIcon,
+          ),
+          border: OutlineInputBorder(),
+        ),
+        validator: function,
+      );
+
+
+  static Widget butomn({
+    double width = double.infinity,
+    Color background = Colors.blue,
+    required String text,
+    bool isUpper = true,
+    double radius = 15.0,
+    final VoidCallback? function,
+  }) =>
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          color: background,
+        ),
+        width: width,
+        child: MaterialButton(
+          onPressed: function,
+          child: Text(
+            isUpper ? text.toUpperCase() : text,
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      );
 }

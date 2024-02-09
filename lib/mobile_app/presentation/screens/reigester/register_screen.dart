@@ -88,8 +88,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textInputType: isPasswordShown
                             ? TextInputType.visiblePassword
                             : TextInputType.emailAddress,
-                        function: (String value) {
-                          if (value.isEmpty) {
+                        function: (String ? value) {
+                          if (value!.isEmpty) {
                             return 'password must not be empty';
                           }
                         },

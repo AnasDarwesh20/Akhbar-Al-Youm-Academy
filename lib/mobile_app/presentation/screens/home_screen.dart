@@ -1,5 +1,6 @@
 import 'package:akbar_al_youm_app/mobile_app/core/style/widgets_components/widgets_default_components.dart';
 import 'package:akbar_al_youm_app/mobile_app/presentation/components/user_profile_photo_widget.dart';
+import 'package:akbar_al_youm_app/mobile_app/presentation/screens/states_screen.dart';
 import 'package:akbar_al_youm_app/mobile_app/presentation/screens/user_profile_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -49,33 +50,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 //   }
 // }
 
-
-
-
-
 class HomeScreenState extends StatefulWidget {
+  const HomeScreenState({super.key});
 
   @override
   State<HomeScreenState> createState() => _HomeScreenStateState();
 }
 
 class _HomeScreenStateState extends State<HomeScreenState> {
-  var Spcaing = SizedBox(
+  var spacing = const SizedBox(
     width: 75,
   );
 
-  int _currentIndex = 0 ;
+  int _currentIndex = 0;
 
   List<Widget> tabs = [
-    HomeScreen(),
-    Text('Stats'),
+    const HomeScreen(),
+    const StatesScreen(),
     ProfileScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
@@ -85,9 +84,9 @@ class _HomeScreenStateState extends State<HomeScreenState> {
             ),
           ],
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: Icon(
               Icons.notifications_none_sharp,
               color: Colors.black,
@@ -98,32 +97,36 @@ class _HomeScreenStateState extends State<HomeScreenState> {
         elevation: 0,
       ),
       body: tabs[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(items: [BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.book),label: 'Stats'),
-        BottomNavigationBarItem(icon: Icon(Icons.person),label: 'Profile',),
-      ],
-
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Stats'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index ;
+            _currentIndex = index;
           });
         },
       ),
     );
-
   }
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(
         children: [
-
-          UserProfilePhotoWidget(AssetImage),
-          SizedBox(
+          const UserProfilePhotoWidget(AssetImage),
+          const SizedBox(
             width: 10,
           ),
           Text('Welcome Back $UserFristName'),

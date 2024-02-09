@@ -2,12 +2,12 @@
 import 'package:akbar_al_youm_app/mobile_app/presentation/screens/reigester/register_screen.dart';
 import 'package:flutter/material.dart';
 
-class SocialLoginScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  State<SocialLoginScreen> createState() => LoginScreenState();
+  State<LoginScreen> createState() => LoginScreenState();
 }
 
-class LoginScreenState extends State<SocialLoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
 
   var passwordController = TextEditingController();
@@ -37,6 +37,7 @@ class LoginScreenState extends State<SocialLoginScreen> {
                     padding: const EdgeInsets.all(20.0),
                     child: Center(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'Login',

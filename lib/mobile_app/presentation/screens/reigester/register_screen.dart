@@ -1,6 +1,6 @@
-
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:akbar_al_youm_app/mobile_app/core/style/widgets_components/widgets_default_components.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -9,13 +9,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  var formKey = GlobalKey<FormState>();
+  var formState = GlobalKey<FormState>();
 
-  var emailController = TextEditingController();
+  var email = TextEditingController();
 
-  var passwordController = TextEditingController();
+  var Password = TextEditingController();
 
-  var nameController = TextEditingController();
+  var Username = TextEditingController();
 
   var phoneController = TextEditingController();
 
@@ -32,27 +32,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
-              key: formKey,
+              key: formState,
               child: Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'REGISTER',
-                      style:
-                      Theme.of(context).textTheme.headline4?.copyWith(
-                        color: Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                            color: Colors.black,
+                          ),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
                       'register now and communicate with others ',
-                      style:
-                      Theme.of(context).textTheme.bodyText1?.copyWith(
-                        color: Colors.grey[400],
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            color: Colors.grey[400],
+                          ),
                     ),
                     SizedBox(
                       height: 30.0,
@@ -63,20 +61,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextFormField(
                         decoration: InputDecoration(
                           label: Text(
-                            "Name"  ,
-                          ) ,
+                            "Name",
+                          ),
                           prefixIcon: Icon(
-                            Icons.person ,
-                          ) ,
+                            Icons.person,
+                          ),
                           border: OutlineInputBorder(),
                         ),
-                        controller: nameController,
-                        validator: (String ?value)
-                        {
-                          if(value!.isEmpty)
-                            return'Name must not be empty' ;
+                        controller: Username,
+                        validator: (String? value) {
+                          if (value!.isEmpty) return 'Name must not be empty';
                         },
-                      ) ,
+                      ),
                     ),
                     SizedBox(
                       height: 20.0,
@@ -88,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textInputType: isPasswordShown
                             ? TextInputType.visiblePassword
                             : TextInputType.emailAddress,
-                        function: (String ? value) {
+                        function: (String? value) {
                           if (value!.isEmpty) {
                             return 'password must not be empty';
                           }
@@ -108,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                         onSubmit: (value) {},
-                        controller: passwordController,
+                        controller: Password,
                         lable: 'Password',
                       ),
                     ),
@@ -121,20 +117,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextFormField(
                         decoration: InputDecoration(
                           label: Text(
-                            "Email"  ,
-                          ) ,
+                            "Email",
+                          ),
                           prefixIcon: Icon(
-                            Icons.mail ,
-                          ) ,
+                            Icons.mail,
+                          ),
                           border: OutlineInputBorder(),
                         ),
-                        controller: emailController,
-                        validator: (String? value)
-                        {
-                          if(value!.isEmpty)
-                            return'Email must not be empty' ;
+                        controller: email,
+                        validator: (String? value) {
+                          if (value!.isEmpty) return 'Email must not be empty';
                         },
-                      ) ,
+                      ),
                     ),
                     SizedBox(
                       height: 30.0,
@@ -145,20 +139,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextFormField(
                         decoration: InputDecoration(
                           label: Text(
-                            "phone"  ,
-                          ) ,
+                            "phone",
+                          ),
                           prefixIcon: Icon(
-                            Icons.phone ,
-                          ) ,
+                            Icons.phone,
+                          ),
                           border: OutlineInputBorder(),
                         ),
                         controller: phoneController,
-                        validator: (String? value)
-                        {
-                          if(value!.isEmpty)
-                            return'Phone must not be empty' ;
+                        validator: (String? value) {
+                          if (value!.isEmpty) return 'Phone must not be empty';
                         },
-                      ) ,
+                      ),
                     ),
                     SizedBox(
                       height: 30.0,
@@ -166,9 +158,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     DefaultComponents.butomn(
                       text: 'Register ',
                       isUpper: true,
-                      function: () {
-                        if (formKey.currentState!.validate()) {
-
+                      function: () async {
+                        if (formState.currentState!.validate()) {
+                          try {
+                            final credential = await FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                              email: email.text,
+                              password: Password.text,
+                            );
+                            FirebaseAuth.instance.currentUser!
+                                .sendEmailVerification();
+                            Navigator.of(context).pushReplacementNamed('Login');
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              print('The password provided is too weak.');
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Error',
+                                desc: 'The password provided is too weak.',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              ).show();
+                            } else if (e.code == 'email-already-in-use') {
+                              print(
+                                  'The account already exists for that email.');
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Error',
+                                desc:
+                                    'The account already exists for that email.',
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              ).show();
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
+                        } else {
+                          print('Not valid');
                         }
                       },
                     ),

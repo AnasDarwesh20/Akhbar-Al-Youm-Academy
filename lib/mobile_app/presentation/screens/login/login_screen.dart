@@ -1,5 +1,7 @@
 
 import 'package:akbar_al_youm_app/mobile_app/presentation/screens/reigester/register_screen.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -8,25 +10,25 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  var emailController = TextEditingController();
+  var email = TextEditingController();
 
-  var passwordController = TextEditingController();
+  var Password = TextEditingController();
 
   bool isPasswordShown = false;
 
-  var formKey = GlobalKey<FormState>();
-
+  var formState = GlobalKey<FormState>();
+  bool isLoding = false ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: isLoding == true ? Center(child: CircularProgressIndicator(),) :Container(
         color: Colors.blueGrey[100],
         child: Center(
           child: Container(
             width: 350,
             height: 500,
             child: Form(
-              key: formKey,
+              key: formState,
               child: Card(
                 color: Colors.grey[200],
                 margin: EdgeInsets.all(20.0),
@@ -81,7 +83,7 @@ class LoginScreenState extends State<LoginScreen> {
                           Column(
                             children: [
                               TextFormField(
-                                controller: emailController,
+                                controller: email,
                                 validator: (value) {
                                   if (value!.isEmpty)
                                     return 'please enter your email';
@@ -100,7 +102,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 height: 15.0,
                               ),
                               TextFormField(
-                                controller: passwordController,
+                                controller: Password,
                                 validator: (value) {
                                   if (value!.isEmpty)
                                     return 'please enter your password';
@@ -134,13 +136,59 @@ class LoginScreenState extends State<LoginScreen> {
                                 height: 15.0,
                               ),
                               OutlinedButton(
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    print(emailController.text);
-                                    print(passwordController.text);
+                                onPressed: () async {
 
-                                  }
-                                },
+                                  if (formState.currentState!.validate()) {try {
+                                    isLoding = true ;
+                                    setState(() {
+                                    });
+                                    final credential = await FirebaseAuth.instance
+                                        .signInWithEmailAndPassword(
+                                        email: email.text, password: Password.text);
+                                    isLoding = false;
+                                    setState(() {
+
+                                    });
+                                    if (credential.user!.emailVerified){
+                                      Navigator.of(context).pushReplacementNamed('HomePage');
+                                    }else {
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.error,
+                                        animType: AnimType.rightSlide,
+                                        title: 'Error',
+                                        desc: 'Please open youe Email and press verfied link ',
+                                        btnCancelOnPress: () {},
+                                        btnOkOnPress: () {},
+                                      ).show();
+                                    }
+                                  } on FirebaseAuthException catch (e) {
+                                    if (e.code == 'user-not-found') {
+                                      print('No user found for that email.');
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.error,
+                                        animType: AnimType.rightSlide,
+                                        title: 'Error',
+                                        desc: 'No user found for that email.',
+                                        btnCancelOnPress: () {},
+                                        btnOkOnPress: () {},
+                                      ).show();
+                                    } else if (e.code == 'wrong-password') {
+                                      print('Wrong password provided for that user.');
+                                      AwesomeDialog(
+                                        context: context,
+                                        dialogType: DialogType.error,
+                                        animType: AnimType.rightSlide,
+                                        title: 'Error',
+                                        desc: 'Wrong password provided for that user.',
+                                        btnCancelOnPress: () {},
+                                        btnOkOnPress: () {},
+                                      )..show();
+                                    }}}
+                                  else {
+                                    print ('Not valid');
+                                  }},
                                 child: Text(
                                   'login',
                                 ),

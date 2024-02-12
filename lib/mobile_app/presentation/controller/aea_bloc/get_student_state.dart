@@ -1,12 +1,13 @@
-part of 'aea_bloc.dart';
+part of 'get_student_bloc.dart';
 
-class AeaStates extends Equatable {
+class GetStudentStates extends Equatable {
   final Student student;
 
-  const AeaStates({
+
+  const GetStudentStates({
     this.student = const Student(
-      name: 'name',
-      age: 50,
+      englishName: 'name',
+      arabicName: 'name',
       faculty: '',
       id: 50650,
       photo: '',
@@ -21,14 +22,14 @@ class AeaStates extends Equatable {
           term: 1,
           name: 'math',
         ),
-      ],
+      ], phoneNumber: 010338877552, email: '',
     ),
   });
 
-  AeaStates copyWith({
+  GetStudentStates copyWith({
     Student? student,
   }) {
-    return AeaStates(
+    return GetStudentStates(
       student: student ?? this.student,
     );
   }

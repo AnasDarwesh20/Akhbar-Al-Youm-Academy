@@ -3,42 +3,48 @@ import 'package:flutter/material.dart';
 
 class DefaultComponents {
 //  Text :
-  static Widget text({text,context , fontSize}) => Text(
+  static Widget text({text, context, fontSize}) =>
+      Text(
         text,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          fontSize: fontSize ,
+        style: Theme
+            .of(context)
+            .textTheme
+            .labelSmall
+            ?.copyWith(
+          fontSize: fontSize,
         ),
       );
 
-  static  appBar(context) => AppBar(
-    title: Padding(
-      padding:  const EdgeInsetsDirectional.only(
-        top: 20.0 ,
-        start: 10.0 ,
-        end: 10.0 ,
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar() ,
-          const SizedBox(
-            width: defaultWidth,
-          ) ,
-          DefaultComponents.text(
-              text: 'Akbar Al Youm ',
-              context: context,
-              fontSize: 15.0),
-        ],
-      ),
-    ),
-    actions:  [
-      IconButton(
-        onPressed: (){},
-        icon: const Icon(
-            Icons.notifications_active_outlined
+  static appBar(context) =>
+      AppBar(
+        title: Padding(
+          padding: const EdgeInsetsDirectional.only(
+            top: 20.0,
+            start: 10.0,
+            end: 10.0,
+          ),
+          child: Row(
+            children: [
+              const CircleAvatar(),
+              const SizedBox(
+                width: AppNumbers.defaultWidth,
+              ),
+              DefaultComponents.text(
+                  text: 'Akbar Al Youm ',
+                  context: context,
+                  fontSize: 15.0),
+            ],
+          ),
         ),
-      ) ,
-    ],
-  ) ;
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+                Icons.notifications_active_outlined
+            ),
+          ),
+        ],
+      );
 
   static Widget defaultFormField({
     required TextInputType textInputType,
@@ -95,4 +101,26 @@ class DefaultComponents {
           ),
         ),
       );
+
+
+  static Widget elevatedButton({
+    onPressed ,
+}) =>
+      Padding(
+        padding: const EdgeInsets.all(15),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: const ButtonStyle(
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(),
+            ),
+            fixedSize: MaterialStatePropertyAll(Size.fromHeight(50.0)) ,
+
+          ),
+          child: const Text(
+            'Math',
+          ),
+        ),
+      ) ;
+
 }

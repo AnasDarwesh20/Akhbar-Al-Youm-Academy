@@ -2,9 +2,12 @@ import 'package:akbar_al_youm_app/mobile_app/domain/entity/subjects.dart';
 import 'package:equatable/equatable.dart';
 
 class Student extends Equatable {
-  final String name;
+  final String englishName;
 
-  final int age;
+  final String email ;
+
+  final String arabicName;
+
   final String faculty;
 
   final int id;
@@ -15,20 +18,24 @@ class Student extends Equatable {
 
   final List<Subject> subjects;
 
+  final int phoneNumber  ;
+
   const Student({
-    required this.name,
-    required this.age,
+    required this.englishName,
+    required this.arabicName,
     required this.faculty,
     required this.id,
     required this.photo,
     required this.year,
     required this.subjects,
+    required this.phoneNumber,
+    required this.email,
   });
 
   @override
   List<Object?> get props => [
-        name,
-        age,
+        englishName,
+        arabicName,
         faculty,
         id,
         photo,

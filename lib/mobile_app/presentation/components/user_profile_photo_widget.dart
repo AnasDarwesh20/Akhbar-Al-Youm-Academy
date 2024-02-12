@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-String UserFristName = 'Ahmed' ;
+String userFirstName = 'Ahmed' ;
 
 class UserProfilePhotoWidget extends StatelessWidget {
 
   const UserProfilePhotoWidget(
-      AssetImage,
+      AssetImage, {super.key}
 
       );
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
+    return const CircleAvatar(
       backgroundImage: AssetImage('images/a.jpg'),
       radius: 60,
     );

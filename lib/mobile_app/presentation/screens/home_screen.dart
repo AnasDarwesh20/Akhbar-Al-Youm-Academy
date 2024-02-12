@@ -129,7 +129,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Text('Welcome Back $UserFristName'),
+          Text('Welcome Back $userFirstName'),
         ],
       ),
     ]);

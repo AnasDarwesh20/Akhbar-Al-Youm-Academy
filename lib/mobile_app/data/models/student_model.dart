@@ -3,13 +3,15 @@ import 'package:akbar_al_youm_app/mobile_app/domain/entity/subjects.dart';
 
 class StudentModel extends Student {
   const StudentModel({
-    required super.name,
-    required super.age,
+    required super.englishName,
+    required super.arabicName,
     required super.faculty,
     required super.id,
     required super.photo,
     required super.year,
     required super.subjects,
+    required super.phoneNumber,
+    required super.email,
   });
 
   factory StudentModel.fromFireStore(
@@ -23,15 +25,29 @@ class StudentModel extends Student {
             [];
 
     return StudentModel(
-      name: data['name'],
-      age: data['age'],
+      arabicName: data['name'],
       faculty: data['faculty'],
       id: data['id'],
       photo: data['photo'],
       year: data['year'],
       subjects: subjects,
+      phoneNumber: data['phone_number'],
+      englishName: data['english_name'],
+      email: data['email'],
     );
   }
+
+  Map<String , dynamic> toMap() => {
+    'english_name' : englishName ,
+    'arabic_name' : arabicName ,
+    'faculty' : faculty ,
+    'id' : id ,
+    'photo' : photo ,
+    'year' : year ,
+    'subjects' : subjects ,
+    'phone_number' : phoneNumber ,
+    'email' : email ,
+  } ;
 }
 
 class SubjectModel extends Subject {

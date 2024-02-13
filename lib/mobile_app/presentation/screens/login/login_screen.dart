@@ -11,7 +11,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  var email = TextEditingController();
+  var id = TextEditingController();
 
   var password = TextEditingController();
 
@@ -93,7 +93,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 Column(
                                   children: [
                                     TextFormField(
-                                      controller: email,
+                                      controller: id,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'please enter your email';
@@ -103,11 +103,11 @@ class LoginScreenState extends State<LoginScreen> {
                                       },
                                       decoration: const InputDecoration(
                                         label: Text(
-                                          'email',
+                                          'Enter your code',
                                         ),
                                         border: OutlineInputBorder(),
                                         prefixIcon: Icon(
-                                          Icons.mail_outline_outlined,
+                                          Icons.code_rounded,
                                         ),
                                       ),
                                     ),
@@ -156,16 +156,14 @@ class LoginScreenState extends State<LoginScreen> {
                                         if (formState.currentState!
                                             .validate()) {
                                           try {
-                                            isLoading = true;
                                             setState(() {});
                                             final credential =
                                                 await FirebaseAuth
                                                     .instance
                                                     .signInWithEmailAndPassword(
-                                                        email: email.text,
+                                                        email: id.text,
                                                         password:
                                                             password.text);
-                                            isLoading = false;
                                             setState(() {});
                                             if (credential
                                                 .user!.emailVerified) {
@@ -235,7 +233,7 @@ class LoginScreenState extends State<LoginScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const RegisterScreen(),
+                                                        RegisterScreen(),
                                                   ));
                                             },
                                             child: const Text(

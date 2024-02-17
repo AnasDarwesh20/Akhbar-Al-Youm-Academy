@@ -9,6 +9,8 @@ Future<void> newUserCreate({
   required subjects,
   required phoneNumber,
   required email,
+  String ? faculty, /// ToDo : this from admin
+  String ? year, /// ToDo : this from admin
 }) async {
   StudentModel model = StudentModel(
     englishName: englishName,
@@ -24,8 +26,8 @@ Future<void> newUserCreate({
   /// ToDo : the faculty should be added from the admin and year
   FirebaseFirestore.instance
       .collection('students')
-      .doc('computer science')
-      .collection('year1')
+      .doc(faculty ?? 'students_not_registered_in_college')
+      .collection(year ?? 'not_registered_in_year')
       .doc(model.id)
       .set(model.toMap())
       .then((value) {

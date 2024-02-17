@@ -3,15 +3,12 @@ part of 'get_student_bloc.dart';
 class GetStudentStates extends Equatable {
   final Student student;
 
-
   const GetStudentStates({
     this.student = const Student(
       englishName: 'name',
       arabicName: 'name',
-      faculty: '',
-      id: 50650,
+      id: '50650',
       photo: '',
-      year: 3,
       subjects: [
         Subject(
           doctor: 'Ahmed',
@@ -22,7 +19,9 @@ class GetStudentStates extends Equatable {
           term: 1,
           name: 'math',
         ),
-      ], phoneNumber: 010338877552, email: '',
+      ],
+      phoneNumber: '010338877552',
+      email: '',
     ),
   });
 

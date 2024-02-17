@@ -8,25 +8,19 @@ class Student extends Equatable {
 
   final String arabicName;
 
-  final String faculty;
-
-  final int id;
+  final String id;
 
   final String photo;
 
-  final int year;
-
   final List<Subject> subjects;
 
-  final int phoneNumber  ;
+  final String phoneNumber  ;
 
   const Student({
     required this.englishName,
     required this.arabicName,
-    required this.faculty,
     required this.id,
     required this.photo,
-    required this.year,
     required this.subjects,
     required this.phoneNumber,
     required this.email,
@@ -36,10 +30,8 @@ class Student extends Equatable {
   List<Object?> get props => [
         englishName,
         arabicName,
-        faculty,
         id,
         photo,
-        year,
         subjects,
       ];
 }

@@ -1,13 +1,13 @@
+import 'package:akbar_al_youm_app/mobile_app/core/services/new_user_create.dart';
 import 'package:akbar_al_youm_app/mobile_app/data/models/student_model.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 abstract class BaseFirebaseDataSource {
   Future<StudentModel> getStudentData();
 
   Future<void> registerStudent(StudentModel model, context);
+
   Future<void> loginStudent(StudentModel model, context);
 
   Future<void> newLectureAttend({
@@ -36,40 +36,23 @@ class FirebaseDataSource extends BaseFirebaseDataSource {
 
   @override
   Future<void> registerStudent(StudentModel model, context) async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: model.email,
+      password: model.id.toString(),
+    )
+        .then((value) {
+      newUserCreate(
+        englishName: model.englishName,
+        arabicName: model.arabicName,
+        id: model.id,
+        subjects: model.subjects,
+        phoneNumber: model.phoneNumber,
         email: model.email,
-        password: model.id.toString(),
       );
-      FirebaseAuth.instance.currentUser!.sendEmailVerification();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.error,
-          animType: AnimType.rightSlide,
-          title: 'Error',
-          desc: 'The password provided is too weak.',
-          btnCancelOnPress: () {},
-          btnOkOnPress: () {},
-        ).show();
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.error,
-          animType: AnimType.rightSlide,
-          title: 'Error',
-          desc: 'The account already exists for that email.',
-          btnCancelOnPress: () {},
-          btnOkOnPress: () {},
-        ).show();
-      }
-    } catch (e) {
-      print(e);
-    }
+    }).catchError((error) {
+      print(error.toString()) ;
+    });
   }
 
   @override
@@ -89,7 +72,5 @@ class FirebaseDataSource extends BaseFirebaseDataSource {
   }
 
   @override
-  Future<void> loginStudent(StudentModel model, context) async {
-
-  }
+  Future<void> loginStudent(StudentModel model, context) async {}
 }

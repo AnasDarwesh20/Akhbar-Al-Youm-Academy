@@ -11,7 +11,7 @@ class GetStudentEvent extends AeaEvent
 }
 
 class RegisterStudentEvent extends AeaEvent {
-  final RegisterParameters model ;
+  final StudentModel model ;
 
   const RegisterStudentEvent(this.model);
   @override

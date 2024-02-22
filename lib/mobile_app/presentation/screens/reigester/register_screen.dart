@@ -35,6 +35,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String? gender;
 
+  String? major;
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -61,6 +64,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ?.copyWith(
                               color: Colors.black,
                             ),
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      const Text("Chose your major",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15)),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+
+                      Column(
+                        children: [
+                          RadioListTile(
+                            title: const Text("Doctor"),
+                            value: "Doctor",
+                            groupValue: major,
+                            onChanged: (value) {
+                              setState(() {
+                                major = value.toString();
+                              });
+                            },
+                          ),
+                          RadioListTile(
+                            title: const Text("Student"),
+                            value: "Student",
+                            groupValue: major,
+                            onChanged: (value) {
+                              setState(() {
+                                major = value.toString();
+                              });
+                            },
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 10.0,

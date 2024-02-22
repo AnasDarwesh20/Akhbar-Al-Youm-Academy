@@ -1,5 +1,6 @@
+import 'package:akbar_al_youm_app/mobile_app/presentation/screens/home_screen.dart';
 import 'package:akbar_al_youm_app/mobile_app/presentation/screens/reigester/register_screen.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  var id = TextEditingController();
+  var email = TextEditingController();
 
   var password = TextEditingController();
 
@@ -93,17 +94,17 @@ class LoginScreenState extends State<LoginScreen> {
                                 Column(
                                   children: [
                                     TextFormField(
-                                      controller: id,
+                                      controller: email,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'please enter your email';
                                         } else {
-                                        return null;
+                                          return null;
                                         }
                                       },
                                       decoration: const InputDecoration(
                                         label: Text(
-                                          'Enter your code',
+                                          'Email',
                                         ),
                                         border: OutlineInputBorder(),
                                         prefixIcon: Icon(
@@ -120,14 +121,14 @@ class LoginScreenState extends State<LoginScreen> {
                                         if (value!.isEmpty) {
                                           return 'please enter your password';
                                         } else {
-                                        return null;
+                                          return null;
                                         }
                                       },
                                       obscureText:
                                           isPasswordShown ? false : true,
                                       decoration: InputDecoration(
                                         label: const Text(
-                                          'password',
+                                          'Code',
                                         ),
                                         border: const OutlineInputBorder(),
                                         prefixIcon: const Icon(
@@ -152,68 +153,15 @@ class LoginScreenState extends State<LoginScreen> {
                                       height: 15.0,
                                     ),
                                     OutlinedButton(
-                                      onPressed: () async {
+                                      onPressed: () {
                                         if (formState.currentState!
                                             .validate()) {
-                                          try {
-                                            setState(() {});
-                                            final credential =
-                                                await FirebaseAuth
-                                                    .instance
-                                                    .signInWithEmailAndPassword(
-                                                        email: id.text,
-                                                        password:
-                                                            password.text);
-                                            setState(() {});
-                                            if (credential
-                                                .user!.emailVerified) {
-                                              Navigator.of(context)
-                                                  .pushReplacementNamed(
-                                                      'HomePage');
-                                            } else {
-                                              AwesomeDialog(
-                                                context: context,
-                                                dialogType: DialogType.error,
-                                                animType: AnimType.rightSlide,
-                                                title: 'Error',
-                                                desc:
-                                                    'Please open youe Email and press verfied link ',
-                                                btnCancelOnPress: () {},
-                                                btnOkOnPress: () {},
-                                              ).show();
-                                            }
-                                          } on FirebaseAuthException catch (e) {
-                                            if (e.code == 'user-not-found') {
-                                              print(
-                                                  'No user found for that email.');
-                                              AwesomeDialog(
-                                                context: context,
-                                                dialogType: DialogType.error,
-                                                animType: AnimType.rightSlide,
-                                                title: 'Error',
-                                                desc:
-                                                    'No user found for that email.',
-                                                btnCancelOnPress: () {},
-                                                btnOkOnPress: () {},
-                                              ).show();
-                                            } else if (e.code ==
-                                                'wrong-password') {
-                                              print(
-                                                  'Wrong password provided for that user.');
-                                              AwesomeDialog(
-                                                context: context,
-                                                dialogType: DialogType.error,
-                                                animType: AnimType.rightSlide,
-                                                title: 'Error',
-                                                desc:
-                                                    'Wrong password provided for that user.',
-                                                btnCancelOnPress: () {},
-                                                btnOkOnPress: () {},
-                                              )..show();
-                                            }
-                                          }
-                                        } else {
-                                          print('Not valid');
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const HomeScreenState(),
+                                              ));
                                         }
                                       },
                                       child: const Text(

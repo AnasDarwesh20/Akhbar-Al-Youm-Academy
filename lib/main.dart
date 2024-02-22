@@ -50,11 +50,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: lightTheme(),
       home: (FirebaseAuth.instance.currentUser != null &&
-    FirebaseAuth.instance.currentUser!.emailVerified ) ? HomeScreenState() : LoginScreen(),
+    FirebaseAuth.instance.currentUser!.emailVerified ) ? const HomeScreen() : LoginScreen(),
     routes: {
-    'Signup' : (context) => RegisterScreen(),
-    'Login' : (context) => LoginScreen(),
-    'HomePage' : (context) => HomeScreenState(),
+    'Signup' : (context) => const RegisterScreen(),
+    'Login' : (context) => const LoginScreen(),
+    'HomePage' : (context) => const HomeScreen(),
 
     },
     );

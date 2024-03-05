@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'mobile_app/presentation/screens/login/login_screen.dart';
 import 'mobile_app/presentation/screens/reigester/register_screen.dart';
+import 'mobile_app/presentation/screens/states_screen.dart';
+import 'mobile_app/presentation/screens/user_profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +57,8 @@ class _MyAppState extends State<MyApp> {
     'Signup' : (context) => const RegisterScreen(),
     'Login' : (context) => const LoginScreen(),
     'HomePage' : (context) => const HomeScreen(),
+      'States' : (context) => const StatesScreen(),
+      'Profile' : (context) =>  ProfileScreen(),
 
     },
     );

@@ -58,31 +58,34 @@ class HomeScreenState extends StatefulWidget {
 }
 
 class _HomeScreenStateState extends State<HomeScreenState> {
+
   var spacing = const SizedBox(
     width: 75,
   );
-
-  int _currentIndex = 0;
+  // Widget _currentWidget = Container();
+  var _currentIndex = 0;
 
   List<Widget> tabs = [
     const HomeScreen(),
     const StatesScreen(),
     ProfileScreen(),
   ];
-
+@override
+  void initState() {
+  HomeScreen();
+  super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage('images/aa.jpg'),
-              width: 120,
-              height: 120,
-            ),
-          ],
+        title: Center(
+          child: Image(
+            image: AssetImage('images/aa.jpg'),
+            width: 120,
+            height: 80,
+          ),
         ),
         actions: const [
           Padding(
@@ -96,7 +99,7 @@ class _HomeScreenStateState extends State<HomeScreenState> {
         leadingWidth: 500,
         elevation: 0,
       ),
-      body: tabs[_currentIndex],
+      body:tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -113,6 +116,7 @@ class _HomeScreenStateState extends State<HomeScreenState> {
           });
         },
       ),
+
     );
   }
 }
@@ -123,15 +127,73 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(
-        children: [
-          const UserProfilePhotoWidget(AssetImage),
-          const SizedBox(
-            width: 10,
-          ),
-          Text('Welcome Back $userFirstName'),
-        ],
+      Container(
+        height: 150,
+        child: CarouselSlider(
+            items:[Image(
+              image: NetworkImage('https://www.facebook.com/photo?fbid=639181438312318&set=a.439654614931669'),
+              width: double.infinity,
+              fit: BoxFit.cover ,
+            ) , ],
+            options: CarouselOptions(
+              height: 300.0 ,
+              initialPage: 0 ,
+              enableInfiniteScroll: true ,
+              reverse: false ,
+              autoPlay: true ,
+              autoPlayInterval: Duration (seconds: 3) ,
+              autoPlayAnimationDuration: Duration(seconds: 1) ,
+              autoPlayCurve: Curves.fastOutSlowIn ,
+              scrollDirection: Axis.horizontal ,
+              viewportFraction: 1.0 ,
+            )),
+      ) ,
+      Container(
+        width: double.infinity,
+        height: 150,
+        child: Row(
+          children: [
+            const UserProfilePhotoWidget(AssetImage),
+            const SizedBox(
+              width: 5,
+            ),
+            Text('Welcome Back $userFirstName'),
+          ],
+        ),
       ),
+      Center(
+        child: Container(
+          width: 250,
+          child: Row(
+            children: [
+              Container(
+                width: 200,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'New lecture',
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    contentPadding:
+                    EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(color: Colors.grey)),
+                  ),
+                ),
+              ),
+              Icon(Icons.task_alt_outlined),
+            ],
+          ),
+        ),
+      )
+      
     ]);
   }
 }

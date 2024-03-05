@@ -21,6 +21,7 @@ class LoginScreenState extends State<LoginScreen> {
   var formState = GlobalKey<FormState>();
   bool isLoading = false;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,12 +157,12 @@ class LoginScreenState extends State<LoginScreen> {
                                       onPressed: () {
                                         if (formState.currentState!
                                             .validate()) {
-                                          Navigator.push(
+                                          Navigator.pushAndRemoveUntil(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     const HomeScreenState(),
-                                              ));
+                                              ),(route) => false ,);
                                         }
                                       },
                                       child: const Text(

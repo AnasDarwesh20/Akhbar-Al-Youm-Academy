@@ -30,7 +30,7 @@ class _StatesScreenState extends State<StatesScreen> {
                     });
                   },
                 ),
-                DefaultComponents.elevatedButton(),
+                // DefaultComponents.elevatedButton(),
                 DefaultComponents.elevatedButton(),
               ],
             ),
@@ -40,7 +40,7 @@ class _StatesScreenState extends State<StatesScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                DefaultComponents.elevatedButton(),
+                // DefaultComponents.elevatedButton(),
                 DefaultComponents.elevatedButton(),
                 DefaultComponents.elevatedButton(),
               ],
